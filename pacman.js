@@ -10,7 +10,7 @@ var inky = {
   colour: 'red',
   character: 'shadow',
   edible: false
-}
+};
 
 var blinky = {
   menu_option: '2',
@@ -18,7 +18,7 @@ var blinky = {
   colour: 'cyan',
   character: 'speedy',
   edible: false
-}
+};
 
 var pinky = {
   menu_option: '3',
@@ -26,7 +26,7 @@ var pinky = {
   colour: 'pink',
   character: 'bashful',
   edible: false
-}
+};
 
 var clyde = {
   menu_option: '4',
@@ -34,7 +34,7 @@ var clyde = {
   colour: 'orange',
   character: 'pokey',
   edible: false
-}
+};
 
 // replace this comment with your four ghosts setup as objects
 var ghosts = [inky, blinky, pinky, clyde];
@@ -61,19 +61,38 @@ function displayStats() {
 function displayMenu() {
   console.log('\n\nSelect Option:\n');  // each \n creates a new line
   console.log('(d) Eat Dot');
+  console.log('(1) Eat Inky');
+  console.log('(2) Eat Blinky');
+  console.log('(3) Eat Pinky');
+  console.log('(4) Eat Clyde');
   console.log('(q) Quit');
 }
 
 function displayPrompt() {
   // process.stdout.write is similar to console.log except it doesn't add a new line after the text
+  if (lives <= 0) {
+    console.log('\nGame Over.');
+    process.exit();
+  }
   process.stdout.write('\nWaka Waka :v '); // :v is the Pac-Man emoji.
 }
+
 
 
 // Menu Options
 function eatDot() {
   console.log('\nChomp!');
   score += 10;
+}
+
+function eatGhost(ghost) {
+  if (ghost.edible === false) {
+    console.log('\nPac-Man tried to eat ' + ghost.name + ' ' + ghost.colour 'but failed.');
+    lives -= 1;
+  }
+  else {
+    console.log('\nPac-man succesfully ate ' + ghost.name '.');
+  }
 }
 
 
@@ -87,6 +106,20 @@ function processInput(key) {
     case 'd':
       eatDot();
       break;
+    case '1':
+      eatGhost(ghosts[0]);
+      break;
+    case '2':
+      eatGhost(ghosts[1]);
+      break;
+    case '3':
+      eatGhost(ghosts[2]);
+      break;
+    case '4':
+      eatGhost(ghosts[3]);
+      break;
+
+
     default:
       console.log('\nInvalid Command!');
   }
